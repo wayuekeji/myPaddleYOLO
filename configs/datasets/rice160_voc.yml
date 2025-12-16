@@ -12,7 +12,7 @@ TrainDataset:
 EvalDataset:
   name: VOCDataSet
   dataset_dir: H:\dataset\rice\160
-  anno_path: test.txt
+  anno_path: all_list.txt
   label_list: label_list.txt
   data_fields: ['image', 'gt_bbox', 'gt_class', 'difficult']
 

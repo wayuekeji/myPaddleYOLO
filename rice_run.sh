@@ -6,11 +6,11 @@ log_dir=log_dir/${job_name}
 weights=output/${job_name}/model_final.pdparams
 
 # 1.训练（单卡/多卡），加 --eval 表示边训边评估，加 --amp 表示混合精度训练
-python tools/train.py -c configs/yolov8/yolov8_n_100e_64b8b_riceneck293.yml --eval --amp
+python tools/train.py -c configs/yolov8/yolov8_n_100e_64b8b_rice160.yml --eval --amp
 # python -m paddle.distributed.launch --log_dir=${log_dir} --gpus 0,1,2,3,4,5,6,7 tools/train.py -c ${config} --eval --amp
 
 # 2.评估，加 --classwise 表示输出每一类mAP
-python tools/eval.py -c configs/yolov8/yolov8_n_100e_16b8b_rice.yml -o weights=output/yolov8_n_100e_16b8b_rice/best_model.pdparams --classwise
+python tools/eval.py -c configs/yolov8/yolov8_n_100e_64b8b_rice160.yml -o weights=output/yolov8_n_100e_64b8b_rice160/best_model.pdparams --classwise
 
 # 3.预测 (单张图/图片文件夹）
 # python tools/infer.py -c configs/yolov8/yolov8_n_100e_64b8b_rice200.yml -o weights=output/yolov8_n_100e_64b8b_rice200/best_model.pdparams --infer_img=H:\\dataset\\rice\\80\\images\xxx.jpg --draw_threshold=0.5 --output_dir=output/yolov8_n_100e_64b8b_rice200/inference_results
@@ -18,8 +18,9 @@ python tools/infer.py -c configs/yolov8/yolov8_n_100e_64b8b_riceneck293.yml -o w
 
 # 4. web demo
 cd rice_demo
-python app.py --config ../configs/yolov8/yolov8_n_100e_64b8b_riceneck293.yml --weights ../output/yolov8_n_100e_64b8b_riceneck293/best_model.pdparams
+python app.py --config ../configs/yolov8/yolov8_n_100e_64b8b_rice160.yml --weights ../output/yolov8_n_100e_64b8b_rice160/best_model.pdparams
 
+"http://127.0.0.1:5000"
 
 
 """ 以下未被使用 """
