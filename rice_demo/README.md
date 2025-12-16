@@ -1,4 +1,4 @@
-# 🌾 水稻稻瘟病智能检测系统 | Rice Blast Disease Detection System
+# 🌾 水稻稻瘟病智能检测系统 | Rice Lesion Disease Detection System
 
 <div align="center">
   <img src="https://img.shields.io/badge/Python-3.8+-blue.svg" alt="Python">
@@ -51,8 +51,8 @@ pip install -r requirements.txt
 3. **准备模型**
 
 确保您已经训练好了模型，并知道模型配置文件和权重文件的路径。例如：
-- 配置文件：`../configs/yolov10/rice_blast_yolov10_n.yml`
-- 权重文件：`../output/rice_blast_yolov10_n/model_final.pdparams`
+- 配置文件：`../configs/yolov10/rice_lesion_yolov10_n.yml`
+- 权重文件：`../output/rice_lesion_yolov10_n/model_final.pdparams`
 
 ### 运行应用
 
@@ -63,13 +63,13 @@ python app.py --config ../configs/yolov8/yolov8_n_100e_16b8b_rice200.yml --weigh
 如果使用GPU：
 
 ```bash
-python app.py --config ../configs/yolov10/rice_blast_yolov10_n.yml --weights ../output/rice_blast_yolov10_n/model_final.pdparams --use_gpu
+python app.py --config ../configs/yolov10/rice_lesion_yolov10_n.yml --weights ../output/rice_lesion_yolov10_n/model_final.pdparams --use_gpu
 ```
 
 指定端口和主机：
 
 ```bash
-python app.py --config ../configs/yolov10/rice_blast_yolov10_n.yml --weights ../output/rice_blast_yolov10_n/model_final.pdparams --host 0.0.0.0 --port 8080
+python app.py --config ../configs/yolov10/rice_lesion_yolov10_n.yml --weights ../output/rice_lesion_yolov10_n/model_final.pdparams --host 0.0.0.0 --port 8080
 ```
 
 ### 访问应用

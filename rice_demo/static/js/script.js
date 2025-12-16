@@ -1,5 +1,5 @@
 /**
- * Rice Blast Disease Detection System
+ * Rice Lesion Disease Detection System
  * JavaScript Functions for Interactive Features
  */
 
@@ -95,7 +95,7 @@ function handleFileUpload(e) {
 // Handle single file
 async function handleFile(file, isSingle = false) {
     if (!file.type.startsWith('image/')) {
-        showToast('请选择图片文件！', 'error');
+        showToast('Please select an image file!', 'error');
         return;
     }
     // Reset folder mode
@@ -129,24 +129,24 @@ async function handleFile(file, isSingle = false) {
         const data = await response.json();
         if (data.success) {
             currentImagePath = data.path;
-            showToast('图片上传成功！', 'success');
+            showToast('Image uploaded successfully!', 'success');
         } else {
-            showToast('图片上传失败：' + data.error, 'error');
+            showToast('Image upload failed: ' + data.error, 'error');
         }
     } catch (error) {
         console.error('Upload error:', error);
-        showToast('图片上传失败！', 'error');
+        showToast('Image upload failed!', 'error');
     }
 }
 // Handle local folder selection (HTML5 directory picker)
 function handleLocalFolderSelect(e) {
     const files = Array.from(e.target.files).filter(f => f.type.startsWith('image/'));
     if (!files.length) {
-        showToast('文件夹中没有图片！', 'error');
+        showToast('No images found in folder!', 'error');
         return;
     }
     // Sort by name
-    files.sort((a, b) => a.name.localeCompare(b.name, 'zh-CN', {numeric: true}));
+    files.sort((a, b) => a.name.localeCompare(b.name, 'en', {numeric: true}));
     imageList = files;
     currentFolderPath = '';
     currentImageIndex = 0;
@@ -154,7 +154,7 @@ function handleLocalFolderSelect(e) {
     folderInfo.style.display = 'block';
     navigationControls.style.display = 'block';
     showImageAtIndexLocal(0);
-    showToast(`成功加载 ${files.length} 张图片！`, 'success');
+    showToast(`Successfully loaded ${files.length} images!`, 'success');
 }
 
 // Show image at index for local folder
@@ -197,7 +197,7 @@ async function showImageAtIndexLocal(index) {
         }
     } catch (error) {
         console.error('Upload error:', error);
-        showToast('图片上传失败！', 'error');
+        showToast('Image upload failed!', 'error');
     }
 }
 
@@ -205,7 +205,7 @@ async function showImageAtIndexLocal(index) {
 async function handleLoadFolder() {
     const path = folderPath.value.trim();
     if (!path) {
-        showToast('请输入文件夹路径！', 'error');
+        showToast('Please enter a folder path!', 'error');
         return;
     }
     
@@ -231,16 +231,16 @@ async function handleLoadFolder() {
             if (imageList.length > 0) {
                 navigationControls.style.display = 'block';
                 showImageAtIndex(0);
-                showToast(`成功加载 ${data.total} 张图片！`, 'success');
+                showToast(`Successfully loaded ${data.total} images!`, 'success');
             } else {
-                showToast('文件夹中没有找到图片！', 'error');
+                showToast('No images found in folder!', 'error');
             }
         } else {
-            showToast('加载文件夹失败：' + data.error, 'error');
+            showToast('Failed to load folder: ' + data.error, 'error');
         }
     } catch (error) {
         console.error('Load folder error:', error);
-        showToast('加载文件夹失败！', 'error');
+        showToast('Failed to load folder!', 'error');
     }
 }
 
@@ -272,11 +272,11 @@ async function showImageAtIndex(index) {
             resultsContent.style.display = 'none';
             resultsContent.previousElementSibling.style.display = 'block';
         } else {
-            showToast('加载图片失败：' + data.error, 'error');
+            showToast('Failed to load image: ' + data.error, 'error');
         }
     } catch (error) {
         console.error('Load image error:', error);
-        showToast('加载图片失败！', 'error');
+        showToast('Failed to load image!', 'error');
     }
 }
 
@@ -297,7 +297,7 @@ function showNextImage() {
 // Handle predict
 async function handlePredict() {
     if (!currentImagePath) {
-        showToast('请先选择图片！', 'error');
+        showToast('Please select an image first!', 'error');
         return;
     }
     // Show loading
@@ -323,13 +323,13 @@ async function handlePredict() {
             imageContainerResult.querySelector('.placeholder').style.display = 'none';
             // Update results
             updateResults(data);
-            showToast(`检测完成！发现 ${data.detections} 个病斑`, 'success');
+            showToast(`Detection complete! Found ${data.detections} lesion(s)`, 'success');
         } else {
-            showToast('检测失败：' + data.error, 'error');
+            showToast('Detection failed: ' + data.error, 'error');
         }
     } catch (error) {
         console.error('Prediction error:', error);
-        showToast('检测失败！', 'error');
+        showToast('Detection failed!', 'error');
     } finally {
         loadingSpinner.style.display = 'none';
         predictBtn.disabled = false;
@@ -346,9 +346,9 @@ function updateResults(data) {
     detectionCount.textContent = data.detections;
     // 分类数量
     const riceNeskBlastCount = document.getElementById('riceNeskBlastCount');
-    const riceBlastCount = document.getElementById('riceBlastCount');
+    const riceLesionCount = document.getElementById('riceLesionCount');
     riceNeskBlastCount.textContent = data.results ? (data.results.rice_nesk_blast_count || 0) : 0;
-    riceBlastCount.textContent = data.results ? (data.results.rice_blast_count || 0) : 0;
+    riceLesionCount.textContent = data.results ? (data.results.rice_lesion_count || 0) : 0;
     
     // Clear previous detection list
     detectionList.innerHTML = '';
@@ -359,7 +359,7 @@ function updateResults(data) {
         
         bboxes.forEach((bbox, idx) => {
             const score = scores[idx];
-            const className = class_names[class_ids[idx]] || '未知';
+            const className = class_names[class_ids[idx]] || 'Unknown';
             
             const item = document.createElement('div');
             item.className = 'detection-item';
@@ -372,7 +372,7 @@ function updateResults(data) {
                 </div>
                 <div class="detection-item-bbox">
                     <i class="fas fa-map-marker-alt"></i> 
-                    位置: [${bbox[0].toFixed(0)}, ${bbox[1].toFixed(0)}, ${bbox[2].toFixed(0)}, ${bbox[3].toFixed(0)}]
+                    Location: [${bbox[0].toFixed(0)}, ${bbox[1].toFixed(0)}, ${bbox[2].toFixed(0)}, ${bbox[3].toFixed(0)}]
                 </div>
             `;
             detectionList.appendChild(item);
@@ -380,7 +380,7 @@ function updateResults(data) {
     }
     
     if (data.detections === 0) {
-        detectionList.innerHTML = '<p style="text-align: center; color: var(--rice-green); padding: 20px;"><i class="fas fa-check-circle"></i> 未检测到病斑，水稻健康！</p>';
+        detectionList.innerHTML = '<p style="text-align: center; color: var(--rice-green); padding: 20px;"><i class="fas fa-check-circle"></i> No lesions detected, rice is healthy!</p>';
     }
 }
 

@@ -1,5 +1,5 @@
 # 水稻稻瘟病检测系统 - 启动配置示例
-# Rice Blast Disease Detection System - Startup Configuration Example
+# Rice Lesion Disease Detection System - Startup Configuration Example
 
 # ================================
 # 基本配置 (Basic Configuration)
@@ -7,11 +7,11 @@
 
 # 模型配置文件路径 (Model config file path)
 # 修改为您的实际配置文件路径
-CONFIG_PATH = "../configs/yolov10/rice_blast_yolov10_n.yml"
+CONFIG_PATH = "../configs/yolov10/rice_lesion_yolov10_n.yml"
 
 # 模型权重文件路径 (Model weights file path)
 # 修改为您的实际权重文件路径
-WEIGHTS_PATH = "../output/rice_blast_yolov10_n/model_final.pdparams"
+WEIGHTS_PATH = "../output/rice_lesion_yolov10_n/model_final.pdparams"
 
 # ================================
 # 服务器配置 (Server Configuration)
@@ -59,13 +59,13 @@ UPLOAD_FOLDER = "uploads"
 # ================================
 
 # Windows命令行启动：
-# python app.py --config ../configs/yolov10/rice_blast_yolov10_n.yml --weights ../output/rice_blast_yolov10_n/model_final.pdparams
+# python app.py --config ../configs/yolov10/rice_lesion_yolov10_n.yml --weights ../output/rice_lesion_yolov10_n/model_final.pdparams
 
 # 使用GPU启动：
-# python app.py --config ../configs/yolov10/rice_blast_yolov10_n.yml --weights ../output/rice_blast_yolov10_n/model_final.pdparams --use_gpu
+# python app.py --config ../configs/yolov10/rice_lesion_yolov10_n.yml --weights ../output/rice_lesion_yolov10_n/model_final.pdparams --use_gpu
 
 # 指定端口启动：
-# python app.py --config ../configs/yolov10/rice_blast_yolov10_n.yml --weights ../output/rice_blast_yolov10_n/model_final.pdparams --port 8080
+# python app.py --config ../configs/yolov10/rice_lesion_yolov10_n.yml --weights ../output/rice_lesion_yolov10_n/model_final.pdparams --port 8080
 
 # 使用批处理脚本启动（推荐）：
 # run_app.bat

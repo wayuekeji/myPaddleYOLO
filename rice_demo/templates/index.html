@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>水稻稻瘟病智能检测系统 | Rice Blast Disease Detection</title>
+    <title>Rice Blast Disease Detection System | Intelligent Detection</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
@@ -24,10 +24,10 @@
             <div class="header-content">
                 <div class="logo">
                     <i class="fas fa-seedling"></i>
-                    <h1>水稻稻瘟病智能检测系统</h1>
+                    <h1>Rice Blast Disease Detection System</h1>
                 </div>
                 <div class="subtitle">
-                    <p>🌾 Rice Blast Disease Detection System 🌾</p>
+                    <p>🌾 Team Carbon Treasure Squad 🌾</p>
                 </div>
             </div>
         </div>
@@ -37,86 +37,85 @@
     <main class="container main-content compact-main three-column-layout">
         <!-- Control Panel -->
     <div class="card control-panel compact-card">
-            <h2><i class="fas fa-sliders-h"></i> 控制面板</h2>
+            <h2><i class="fas fa-sliders-h"></i> Control Panel</h2>
             
             <!-- Upload Section -->
             <div class="upload-section">
-                <h3><i class="fas fa-cloud-upload-alt"></i> 上传图片</h3>
+                <h3><i class="fas fa-cloud-upload-alt"></i> Upload Image</h3>
                 <div class="upload-area" id="uploadArea">
                     <i class="fas fa-image"></i>
-                    <p>点击或拖拽图片到这里</p>
+                    <p>Click or drag image here</p>
                     <input type="file" id="fileInput" accept="image/*" hidden>
                 </div>
             </div>
 
             <!-- Folder Section -->
             <div class="folder-section">
-                <h3><i class="fas fa-folder-open"></i> 加载文件夹</h3>
+                <h3><i class="fas fa-folder-open"></i> Load Folder</h3>
                 <div class="folder-input-group">
                     <input type="file" id="folderPicker" webkitdirectory directory multiple style="display:none;">
                     <button id="openFolderBtn" class="btn btn-primary">
-                        <i class="fas fa-folder-open"></i> 选择本地文件夹
+                        <i class="fas fa-folder-open"></i> Select Local Folder
                     </button>
                 </div>
                 <div id="folderInfo" class="folder-info" style="display: none;">
-                    <p>已加载 <span id="imageCount">0</span> 张图片</p>
+                    <p>Loaded <span id="imageCount">0</span> images</p>
                 </div>
             </div>
 
             <!-- Navigation Controls -->
             <div class="navigation-controls" id="navigationControls" style="display: none;">
-                <h3><i class="fas fa-arrows-alt-h"></i> 图片导航</h3>
+                <h3><i class="fas fa-arrows-alt-h"></i> Image Navigation</h3>
                 <div class="nav-buttons">
                     <button id="prevBtn" class="btn btn-secondary">
-                        <i class="fas fa-chevron-left"></i> 上一张
+                        <i class="fas fa-chevron-left"></i> Previous
                     </button>
                     <span id="imagePosition" class="image-position">1 / 0</span>
                     <button id="nextBtn" class="btn btn-secondary">
-                        下一张 <i class="fas fa-chevron-right"></i>
+                        Next <i class="fas fa-chevron-right"></i>
                     </button>
                 </div>
             </div>
 
             <!-- Detection Settings -->
             <div class="settings-section">
-                <h3><i class="fas fa-cog"></i> 检测设置</h3>
+                <h3><i class="fas fa-cog"></i> Detection Settings</h3>
                 <div class="threshold-control">
-                    <label for="threshold">置信度阈值: <span id="thresholdValue">0.50</span></label>
-                    <input type="range" id="threshold" min="0" max="1" step="0.05" value="0.5">
+                    <label for="threshold">Confidence Threshold: <span id="thresholdValue">0.35</span></label>
+                    <input type="range" id="threshold" min="0" max="1" step="0.05" value="0.35">
                 </div>
             </div>
 
             <!-- Predict Button -->
             <div class="predict-section">
                 <button id="predictBtn" class="btn btn-predict" disabled>
-                    <i class="fas fa-microscope"></i> 开始检测
+                    <i class="fas fa-microscope"></i> Start Detection
                 </button>
             </div>
         </div>
 
         <!-- Image Display Area (Center) -->
         <div class="card image-display compact-card center-panel">
-            <h2><i class="fas fa-image"></i> 图片对比预览</h2>
+            <h2><i class="fas fa-image"></i> Image Comparison Preview</h2>
             <div class="dual-image-container">
                 <div class="image-side">
-                    <div class="side-title">原图</div>
+                    <div class="side-title">Original</div>
                     <div id="imageContainerOriginal" class="image-container compact-image-container">
                         <div class="placeholder">
                             <i class="fas fa-leaf"></i>
                         </div>
-                        <img id="displayImageOriginal" alt="原图" style="display: none;">
+                        <img id="displayImageOriginal" alt="Original" style="display: none;">
                     </div>
                 </div>
                 <div class="image-side">
-                    <div class="side-title">检测结果</div>
+                    <div class="side-title">Detection Result</div>
                     <div id="imageContainerResult" class="image-container compact-image-container">
                         <div class="placeholder">
                             <i class="fas fa-leaf"></i>
                         </div>
-                        <img id="displayImageResult" alt="检测结果" style="display: none;">
+                        <img id="displayImageResult" alt="Detection Result" style="display: none;">
                         <div id="loadingSpinner" class="loading-spinner" style="display: none;">
                             <i class="fas fa-spinner fa-spin"></i>
-                            <p>检测中...</p>
                         </div>
                     </div>
                 </div>
@@ -125,37 +124,37 @@
 
         <!-- Results Display (Right) -->
         <div class="card results-display compact-card right-panel">
-            <h2><i class="fas fa-chart-bar"></i> 检测结果</h2>
+            <h2><i class="fas fa-chart-bar"></i> Detection Results</h2>
             <div id="resultsContainer" class="results-container">
                 <div class="placeholder">
                     <i class="fas fa-clipboard-list"></i>
-                    <p>等待检测结果...</p>
+                    <p>Waiting for detection results...</p>
                 </div>
                 <div id="resultsContent" style="display: none;">
                     <div class="result-summary">
                         <div class="result-item">
                             <i class="fas fa-bug"></i>
-                            <span>检测到病斑数量</span>
+                            <span>Detected Lesions</span>
                             <strong id="detectionCount">0</strong>
                         </div>
-                        <div class="result-item">
+                        <div class="result-item" style="display: none;">
                             <i class="fas fa-bacteria"></i>
                             <span>Rice_Nesk_Blast</span>
                             <strong id="riceNeskBlastCount">0</strong>
                         </div>
-                        <div class="result-item">
+                        <div class="result-item" style="display: none;">
                             <i class="fas fa-bacteria"></i>
-                            <span>Rice_Blast</span>
-                            <strong id="riceBlastCount">0</strong>
+                            <span>Rice_Lesion</span>
+                            <strong id="riceLesionCount">0</strong>
                         </div>
                         <div class="result-item">
                             <i class="fas fa-file-image"></i>
-                            <span>当前图片</span>
+                            <span>Current Image</span>
                             <strong id="currentImageName">-</strong>
                         </div>
                     </div>
                     <div class="detection-details">
-                        <h3><i class="fas fa-list"></i> 详细信息</h3>
+                        <h3><i class="fas fa-list"></i> Details</h3>
                         <div id="detectionList" class="detection-list">
                             <!-- Detection items will be inserted here -->
                         </div>
@@ -168,7 +167,7 @@
     <!-- Footer -->
     <footer class="footer compact-footer">
         <div class="container">
-            <p>🌾 助力农业智能化，守护粮食安全 🌾</p>
+            <p>🌾 Empowering Smart Agriculture, Safeguarding Food Security 🌾</p>
         </div>
     </footer>
 

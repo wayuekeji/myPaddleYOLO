@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-Rice Blast Disease Detection Web Application
+Rice Lesion Disease Detection Web Application
 Copyright (c) 2025
 """
 
@@ -26,7 +26,7 @@ from ppdet.engine import Trainer
 from ppdet.utils.cli import merge_args
 from ppdet.utils.logger import setup_logger
 
-logger = setup_logger('rice_blast_app')
+logger = setup_logger('rice_lesion_app')
 
 app = Flask(__name__)
 app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024  # 16MB max file size
@@ -77,7 +77,7 @@ def draw_bboxes_on_image(image_path, bboxes, scores, class_ids, class_names, thr
     except:
         font = ImageFont.load_default()
     
-    # Color for rice blast disease (red-ish for disease detection)
+    # Color for rice Lesion disease (red-ish for disease detection)
     color = (255, 69, 0)  # Red-orange for disease
     
     # 动态调整线宽
@@ -127,7 +127,7 @@ def predict_image(image_path, threshold=0.5):
         class_names = [catid2name[i] if i in catid2name else f'class_{i}' for i in sorted(catid2name.keys())]
         
         if not class_names:
-            class_names = ['rice_blast']  # Default class name
+            class_names = ['rice_lesion']  # Default class name
         
         # Use the same predict method as infer.py
         # Set images and create TestReader loader
@@ -163,7 +163,7 @@ def predict_image(image_path, threshold=0.5):
         class_ids = []
         # 分类计数
         rice_nesk_blast_count = 0
-        rice_blast_count = 0
+        rice_lesion_count = 0
         
         for outs in results:
             if 'bbox' in outs and len(outs['bbox']) > 0:
@@ -197,13 +197,13 @@ def predict_image(image_path, threshold=0.5):
                             scores.append(score)
                             class_ids.append(int(class_id))
                         # 分类统计
-                        # 假设 class_names 中 Rice_Nesk_Blast 和 Rice_Blast 名称存在
+                        # 假设 class_names 中 Rice_Nesk_Blast 和 Rice_Lesion 名称存在
                         if score >= threshold and int(class_id) < len(class_names):
                             cname = class_names[int(class_id)]
                             if 'Rice_Nesk_Blast' in cname:
                                 rice_nesk_blast_count += 1
-                            elif 'Rice_Blast' in cname:
-                                rice_blast_count += 1
+                            elif 'Rice_Lesion' in cname:
+                                rice_lesion_count += 1
         
         logger.info(f"Detected {len(bboxes)} objects with threshold {threshold}")
         
@@ -214,7 +214,7 @@ def predict_image(image_path, threshold=0.5):
             'class_names': class_names,
             'num_detections': len(bboxes),
             'rice_nesk_blast_count': rice_nesk_blast_count,
-            'rice_blast_count': rice_blast_count
+            'rice_lesion_count': rice_lesion_count
         }
         
     except Exception as e:
@@ -227,10 +227,10 @@ def predict_image(image_path, threshold=0.5):
             'bboxes': [],
             'scores': [],
             'class_ids': [],
-            'class_names': ['rice_blast'],
+            'class_names': ['rice_lesion'],
             'num_detections': 0,
             'rice_nesk_blast_count': 0,
-            'rice_blast_count': 0
+            'rice_lesion_count': 0
         }
 
 
@@ -330,7 +330,7 @@ def predict():
                     'class_ids': results['class_ids'],
                     'class_names': results['class_names'],
                     'rice_nesk_blast_count': results.get('rice_nesk_blast_count', 0),
-                    'rice_blast_count': results.get('rice_blast_count', 0)
+                    'rice_lesion_count': results.get('rice_lesion_count', 0)
                 }
         })
     
@@ -367,7 +367,7 @@ def static_files(filename):
 if __name__ == '__main__':
     import argparse
     
-    parser = argparse.ArgumentParser(description='Rice Blast Disease Detection Web App')
+    parser = argparse.ArgumentParser(description='Rice Lesion Disease Detection Web App')
     parser.add_argument('--config', type=str, required=True, help='Path to config file')
     parser.add_argument('--weights', type=str, required=True, help='Path to model weights')
     parser.add_argument('--use_gpu', action='store_true', default=False, help='Use GPU for inference')

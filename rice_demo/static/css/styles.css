@@ -56,7 +56,7 @@
 /* === Three Column Layout === */
 .three-column-layout {
     display: grid !important;
-    grid-template-columns: 200px 0.7fr 420px !important; /* 检测结果栏更宽，预览栏更窄 */
+    grid-template-columns: 240px 0.7fr 420px !important; /* 检测结果栏更宽，预览栏更窄 */
     gap: 8px !important;
     height: calc(100vh - 130px);
     overflow: hidden;
@@ -140,7 +140,7 @@
 /* Three column layout takes priority */
 .compact-main.three-column-layout {
     display: grid !important;
-    grid-template-columns: 200px 1.0fr 400px !important; /* 检测结果栏宽，预览栏窄 */
+    grid-template-columns: 240px 1.0fr 400px !important; /* 检测结果栏宽，预览栏窄 */
     gap: 8px !important;
     height: calc(100vh - 130px);
     overflow: hidden;
@@ -161,17 +161,23 @@
 }
 
 .compact-image-container {
-    min-height: 100px !important;
+    min-height: 280px !important;
     max-width: 100% !important;
-    max-height: calc(40vh - 60px) !important;
+    max-height: calc(60vh - 60px) !important;
     margin: 0 auto !important;
     padding: 6px !important;
+    aspect-ratio: 1 / 1; /* 保持正方形，当显示placeholder时 */
 }
 
 .compact-image-container img {
     max-width: 100% !important;
-    max-height: calc(40vh - 80px) !important;
+    max-height: calc(60vh - 80px) !important;
     object-fit: contain;
+}
+
+/* 当有图片时，移除正方形限制 */
+.compact-image-container:has(img:not([style*="display: none"])) {
+    aspect-ratio: auto;
 }
 
 .compact-footer {
@@ -222,7 +228,7 @@
 
 @media (max-width: 1200px) {
     .compact-main.three-column-layout {
-        grid-template-columns: 180px 1fr 200px !important;
+        grid-template-columns: 210px 1fr 200px !important;
     }
 }
 
@@ -281,7 +287,7 @@
     }
 }
 /* ===================================
-   Rice Blast Disease Detection System
+   Rice Lesion Disease Detection System
    Author: Student Science Competition
    Theme: Rice Field & Agriculture
    =================================== */
@@ -416,7 +422,7 @@ body {
 /* === Main Content === */
 .main-content {
     display: grid;
-    grid-template-columns: 200px 1fr 220px;
+    grid-template-columns: 240px 1fr 220px;
     gap: 10px;
     margin-bottom: 10px;
 }
@@ -465,6 +471,10 @@ body {
 }
 
 /* === Upload Section === */
+.upload-section {
+    margin-bottom: 20px;
+}
+
 .upload-area {
     border: 2px dashed var(--rice-green);
     border-radius: 10px;
@@ -493,6 +503,9 @@ body {
 }
 
 /* === Folder Section === */
+.folder-section {
+    margin-bottom: 20px;
+}
 .folder-input-group {
     display: flex;
     gap: 8px;
@@ -531,6 +544,7 @@ body {
 /* === Navigation Controls === */
 .navigation-controls {
     margin-top: 10px;
+    margin-bottom: 20px;
 }
 
 .nav-buttons {
@@ -549,6 +563,9 @@ body {
 }
 
 /* === Settings Section === */
+.settings-section {
+    margin-bottom: 20px;
+}
 .threshold-control {
     display: flex;
     flex-direction: column;
@@ -675,10 +692,17 @@ body {
 .image-container .placeholder {
     text-align: center;
     color: var(--rice-dark-green);
+    width: 100%;
+    max-width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    aspect-ratio: 1 / 1; /* 保持正方形 */
 }
 
 .image-container .placeholder i {
-    font-size: 48px;
+    font-size: 80px;
     color: var(--rice-green);
     margin-bottom: 8px;
 }
@@ -700,12 +724,21 @@ body {
     padding: 20px 40px;
     border-radius: 12px;
     box-shadow: 0 6px 20px var(--shadow);
+    min-width: 150px;
+    white-space: nowrap;
 }
 
 .loading-spinner i {
     font-size: 36px;
     color: var(--rice-green);
     margin-bottom: 10px;
+    display: block;
+}
+
+.loading-spinner p {
+    margin: 0;
+    font-size: 14px;
+    color: var(--rice-dark-green);
 }
 
 /* === Results Display === */

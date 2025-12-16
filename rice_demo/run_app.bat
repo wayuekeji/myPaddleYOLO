@@ -1,9 +1,9 @@
 @echo off
-REM Rice Blast Disease Detection System Startup Script
+REM Rice Lesion Disease Detection System Startup Script
 REM Usage: run_app.bat [config_file] [weights_file]
 
 echo ================================================
-echo   Rice Blast Disease Detection System
+echo   Rice Lesion Disease Detection System
 echo   水稻稻瘟病智能检测系统
 echo ================================================
 echo.
@@ -22,12 +22,12 @@ set CONFIG=%1
 set WEIGHTS=%2
 
 if "%CONFIG%"=="" (
-    set CONFIG=..\configs\yolov10\rice_blast_yolov10_n.yml
+    set CONFIG=..\configs\yolov10\rice_lesion_yolov10_n.yml
     echo Using default config: %CONFIG%
 )
 
 if "%WEIGHTS%"=="" (
-    set WEIGHTS=..\output\rice_blast_yolov10_n\model_final.pdparams
+    set WEIGHTS=..\output\rice_lesion_yolov10_n\model_final.pdparams
     echo Using default weights: %WEIGHTS%
 )
 

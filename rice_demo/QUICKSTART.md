@@ -14,12 +14,12 @@
 
 **配置文件**（在 `configs` 文件夹中）：
 ```
-configs/yolov10/rice_blast_yolov10_n.yml
+configs/yolov10/rice_lesion_yolov10_n.yml
 ```
 
 **权重文件**（在 `output` 文件夹中）：
 ```
-output/rice_blast_yolov10_n/model_final.pdparams
+output/rice_lesion_yolov10_n/model_final.pdparams
 ```
 
 记下这些文件的完整路径。
@@ -43,7 +43,7 @@ cd e:\projects\myPaddleYOLO\rice_demo
 
 3. 运行以下命令：
 ```cmd
-python app.py --config ../configs/yolov10/rice_blast_yolov10_n.yml --weights ../output/rice_blast_yolov10_n/model_final.pdparams
+python app.py --config ../configs/yolov10/rice_lesion_yolov10_n.yml --weights ../output/rice_lesion_yolov10_n/model_final.pdparams
 ```
 
 4. 看到 "Running on http://127.0.0.1:5000" 提示后，打开浏览器访问该地址
@@ -162,8 +162,8 @@ python --version
 pip install -r requirements.txt
 
 # 检查文件是否存在
-dir ..\configs\yolov10\rice_blast_yolov10_n.yml
-dir ..\output\rice_blast_yolov10_n\model_final.pdparams
+dir ..\configs\yolov10\rice_lesion_yolov10_n.yml
+dir ..\output\rice_lesion_yolov10_n\model_final.pdparams
 ```
 
 ### 2. 浏览器无法访问
